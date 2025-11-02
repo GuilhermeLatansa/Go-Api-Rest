@@ -6,6 +6,7 @@ import (
 
 	"github.com/GuilhermeLatansa/Go-Api-Rest/controllers"
 	"github.com/GuilhermeLatansa/Go-Api-Rest/middleware"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -19,5 +20,5 @@ func HandleRequests() {
 	r.HandleFunc("/api/paises/{id}", controllers.DeletaPais).Methods("Delete")
 	r.HandleFunc("/api/paises/{id}", controllers.EditaPais).Methods("Put")
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
